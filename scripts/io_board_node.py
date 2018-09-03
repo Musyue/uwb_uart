@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Ioboard class.
 
+python serial port code for 24 io board
+the code '55C81900000055' means closing all io port
+and the code '55C819FFFFFF55' means opening all io port
+@author: Lzyue
+"""
 import rospy
 from std_msgs.msg import String
 import serial
