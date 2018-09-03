@@ -20,7 +20,7 @@ int main (int argc, char** argv){
     try
     {
         ser.setPort("/dev/ttyUSB0");
-        ser.setBaudrate(115200);
+        ser.setBaudrate(9600);
         serial::Timeout to = serial::Timeout::simpleTimeout(1000);
         ser.setTimeout(to);
         ser.open();

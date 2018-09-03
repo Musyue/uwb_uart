@@ -29,6 +29,9 @@ RSEQ range sequence number 计数值(会不断累加)
 DEBUG 如果 MID=ma,代表 TX/RX 天线延迟
 aT:A T 是标签 ID,A 是基站 ID
 此处提到的 ID 只是一个 short ID,完整的 ID 是 64 bit 的
+
+calibration formula:
+Y =  0.9530 * X - 340.2911
 """
 import time
 class Uwbdisinfo:
@@ -38,24 +41,24 @@ class Uwbdisinfo:
     def Init_node(self):
         rospy.init_node(self.nodename)
     def uwbinfo_callback(self,msg):
-        try:
+         try:
             uwbinfo=Uwbdis()
             str=msg.data
             str_data=str.split("\r\n",2)[:2]
             mcdata=str_data[0].split(" ",9)
             mrdata=str_data[1].split(" ",9)
             uwbinfo.MID = mcdata[0]
-            uwbinfo.T_A0 = int(mcdata[2],16)
-            uwbinfo.T_A1 = int(mcdata[3], 16)
-            uwbinfo.T_A2 = int(mcdata[4], 16)
-            uwbinfo.T_A3 = int(mcdata[5], 16)
+            uwbinfo.T_A0 = int(abs(int(mcdata[2],16)*0.9530-340.2911))
+            uwbinfo.T_A1 = int(abs(int(mcdata[3],16)*0.9530-340.2911))
+            uwbinfo.T_A2 = int(abs(int(mcdata[4],16)*0.9530-340.2911))
+            uwbinfo.T_A3 = int(abs(int(mcdata[5],16)*0.9530-340.2911))
             uwbinfo.RangeId = int(mcdata[6], 16)
             uwbinfo.TimeId = int(time.time())
             uwbinfo.Unit = "mm"
             print mcdata
             self.pub.publish(uwbinfo)
-        except:
-            pass
+         except:
+             pass
     def Uwb_Sub(self,topicname):
         sub = rospy.Subscriber(topicname, String, self.uwbinfo_callback)
 def main():

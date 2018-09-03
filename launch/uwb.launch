@@ -3,6 +3,6 @@
     <node name="uwb_uart_node" pkg="uwb_uart" type="UWB_UART_NODE" output="screen"/>
     <!-- start the uwb distance get node -->
     <node name="uwb_distance_info_get" pkg="uwb_uart" type="uwb_info.py" output="screen"/>
-    <!-- start the localization node -->
+    <!-- start the localization node-->
     <node name="uwb_uart_trila_test" pkg="uwb_uart" type="uwb_uart_trila_test" output="screen"/>
 </launch>
