@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   serial
   std_msgs
   geometry_msgs
+  nav_msgs
   message_generation
 )
 find_package(Eigen3 REQUIRED)
@@ -55,6 +56,7 @@ find_package(Eigen3 REQUIRED)
  add_message_files(
     FILES
     Uwbdis.msg
+    velo.msg
 #   Message2.msg
  )
 
@@ -128,11 +130,9 @@ include_directories(
 add_library(test_lib
   src/Trilateration.cpp
 )
-
 target_link_libraries(test_lib
   ${catkin_LIBRARIES}
 )
-
 
 add_executable(${PROJECT_NAME}_trila_test 
   src/trila_test.cpp
@@ -143,6 +143,51 @@ target_link_libraries(${PROJECT_NAME}_trila_test
   ${catkin_LIBRARIES}
 )
 
+
+add_library(k_filter
+  src/KalmanFilter.cpp
+)
+target_link_libraries(k_filter
+  ${catkin_LIBRARIES}
+)
+
+add_executable(kf_main
+  src/kf_main.cpp
+  src/KalmanFilter.cpp
+  src/KFRos.cpp
+)
+target_link_libraries(kf_main
+  k_filter
+  ${catkin_LIBRARIES}
+)
+
+add_executable(velocity_send
+  src/velocity_send.cpp
+)
+target_link_libraries(velocity_send
+  ${catkin_LIBRARIES}
+)
+
+add_executable(test_send_velo
+  src/test_send_velo.cpp
+)
+target_link_libraries(test_send_velo
+  ${catkin_LIBRARIES}
+)
+
+add_executable(manual_path
+  src/manual_path.cpp
+)
+target_link_libraries(manual_path
+  ${catkin_LIBRARIES}
+)
+
+add_executable(manual_path_enhance 
+  src/manual_path_enhance.cpp
+)
+target_link_libraries(manual_path_enhance
+  ${catkin_LIBRARIES}
+)
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/uwb_uart.cpp

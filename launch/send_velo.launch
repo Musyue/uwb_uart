@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="test_send_velo" pkg="uwb_uart" type="test_send_velo" output="screen"/>
+
+  <node name="velocity_send" pkg="uwb_uart" type="velocity_send" output="screen"/>
+
+</launch>

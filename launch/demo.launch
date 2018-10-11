@@ -1,0 +1,14 @@
+<launch>
+    <!-- start ur5    /-->
+    <include file="$(find ur_modern_driver)/launch/ur5_bringup.launch">
+        <arg name="limited" value="true" />
+        <arg name="robot_ip" value="192.168.1.22" />
+    </include>
+    <!-- start the car get node -->
+        <node pkg = "uwb_uart" name = "velocity_send" type = "velocity_send" output = "screen"></node>
+        <node pkg = "uwb_uart" name = "manual_path_enhance" type = "manual_path_enhance" output = "screen"></node>
+    <!-- start the ioboard -->
+    <node name="io_board_node" pkg="uwb_uart" type="io_board_node.py" output="screen"/>
+    <!-- start the task node -->
+     <node name="demo_task" pkg="uwb_uart" type="demo_task.py" output="screen"/>
+</launch>

@@ -9,6 +9,7 @@ using Trila::PosData3d;
 Trilateration::Trilateration(std::string file_name, ros::NodeHandle n) {
     
     ReadPosi(file_name);
+    std::cout << _uwb_input.size() << std::endl;
     _posi_pub = n.advertise<geometry_msgs::Point>("global_position", 1);
 
 }
@@ -25,7 +26,7 @@ void Trilateration::PosiCalcu(const uwb_uart::Uwbdis &range) {
     _uwb_input[0]._dis = range.T_A0;
     _uwb_input[1]._dis = range.T_A1;
     _uwb_input[2]._dis = range.T_A2;
-    _uwb_input[3]._dis = range.T_A3;
+    //_uwb_input[3]._dis = range.T_A3;
 
     // "n" refers to quantity of UWB stations
     // "rows" refers to the quantity of equations
